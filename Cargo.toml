@@ -9,7 +9,7 @@ development = ["bevy/dynamic_linking"]
 
 [workspace]
 resolver = "2"
-members = ["./engine", "./editor"]
+members = ["./engine", "./editor", "./macros"]
 
 [workspace.dependencies]
 bevy = { version = "0.13.2" }

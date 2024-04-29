@@ -15,6 +15,14 @@
     {
       "name": "game",
       "path": "src"
+    },
+    {
+      "name": "macros",
+      "path": "./macros/src"
+    },
+    {
+      "name": "proc_macros",
+      "path": "./macros/proc_macros/src"
     }
   ],
   "settings": {
@@ -39,6 +47,8 @@
       "**/.settings": true,
       "**/.factorypath": true,
       ".direnv": true,
+      "macros/src": true,
+      "macros/proc_macros/src": true,
       "engine/src": true,
       "editor/src": true,
       "src": true
