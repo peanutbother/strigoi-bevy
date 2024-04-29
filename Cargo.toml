@@ -12,10 +12,13 @@ resolver = "2"
 members = ["./engine", "./editor"]
 
 [workspace.dependencies]
-bevy = { version = "0.12.0" }
-bevy_ecs_ldtk = { version = "0.9.0", features = ["atlas"] }
-bevy_pancam = { version = "0.10.0" }
-bevy_mod_picking = { version = "0.17" }
+bevy = { version = "0.13.2" }
+bevy_ecs_ldtk = { git = "https://github.com/Trouv/bevy_ecs_ldtk", rev = "617b108", features = [
+    "atlas",
+] }
+bevy_pancam = { version = "0.11.1" }
+bevy_mod_picking = { version = "0.18.2" }
+bevy_quickmenu = { git = "https://github.com/terhechte/bevy_quickmenu", rev = "b300723" }
 
 [dependencies]
 bevy = { workspace = true }
@@ -28,3 +31,6 @@ opt-level = 1
 # Enable high optimizations for dependencies (incl. Bevy), but not for our code:
 [profile.dev.package."*"]
 opt-level = 3
+
+[patch.crates-io]
+bevy_ecs_tilemap = { git = "https://github.com/StarArawn/bevy_ecs_tilemap" }

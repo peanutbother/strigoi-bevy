@@ -10,7 +10,7 @@ pub enum AssetStage {
 plugin!(
     /// Asset loading plugin with loading states
     AssetPlugin, app => {
-        app.add_state::<AssetStage>().add_loading_state(
+        app.init_state::<AssetStage>().add_loading_state(
             LoadingState::new(AssetStage::Loading).continue_to_state(AssetStage::Done),
         );
     }

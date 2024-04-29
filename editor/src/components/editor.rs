@@ -1,4 +1,4 @@
-use super::{menubar::MenuBar, tabviewer::EguiWindow, TabViewer};
+use super::{tabviewer::EguiWindow, MenuBar, TabViewer};
 use bevy::asset::UntypedAssetId;
 use bevy_inspector_egui::bevy_inspector::hierarchy::SelectedEntities;
 use egui_dock::{DockArea, DockState, NodeIndex, Style};

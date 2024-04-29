@@ -87,17 +87,16 @@ fn toggle_camera(
 }
 
 fn listen_hotkeys(
-    key: Res<Input<KeyCode>>,
-    debug: Res<State<DebugPickingMode>>,
+    key: Res<ButtonInput<KeyCode>>,
+    mut debug: ResMut<DebugPickingMode>,
     mut options: ResMut<crate::state::UiOptions>,
-    mut next_debug: ResMut<NextState<DebugPickingMode>>,
     mut window: Query<&mut Window>,
 ) {
     let mod_key = key.pressed(KeyCode::ShiftLeft) || key.pressed(KeyCode::ShiftRight);
 
     for key in key.get_just_pressed() {
         match key {
-            KeyCode::F1 => change_debug(&mut next_debug, &debug, mod_key),
+            KeyCode::F1 => change_debug(&mut debug, mod_key),
             KeyCode::F2 => invert!(options.inspector),
             KeyCode::F3 => invert!(options.pancam.enabled),
             KeyCode::F4 => invert!(options.pancam.zoom_to_cursor),
@@ -111,12 +110,8 @@ fn listen_hotkeys(
     }
 }
 
-fn change_debug(
-    next_debug: &mut ResMut<'_, NextState<DebugPickingMode>>,
-    debug: &Res<'_, State<DebugPickingMode>>,
-    mod_key: bool,
-) {
-    next_debug.set(match debug.get() {
+fn change_debug(debug: &mut DebugPickingMode, mod_key: bool) {
+    *debug = match *debug {
         DebugPickingMode::Normal => {
             if mod_key {
                 DebugPickingMode::Noisy
@@ -138,5 +133,5 @@ fn change_debug(
                 DebugPickingMode::Normal
             }
         }
-    })
+    };
 }

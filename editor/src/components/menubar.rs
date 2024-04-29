@@ -29,10 +29,7 @@ impl MenuBar {
 
                 ui.menu_button("Settings", |ui| {
                     ui.menu_button("Debug (F1)", |ui| {
-                        let debug_state = {
-                            let s = world.resource_mut::<State<DebugPickingMode>>();
-                            *s.get()
-                        };
+                        let mut debug_state = *world.resource_mut::<DebugPickingMode>();
 
                         let debug_enabled = match debug_state {
                             DebugPickingMode::Disabled => false,
@@ -48,13 +45,10 @@ impl MenuBar {
                             .checkbox(&mut debug_enabled.clone(), "Debug info on hover (F1)")
                             .clicked()
                         {
-                            world
-                                .get_resource_mut::<NextState<DebugPickingMode>>()
-                                .unwrap()
-                                .set(match debug_state {
+                            debug_state = match debug_state {
                                     DebugPickingMode::Disabled => DebugPickingMode::Normal,
                                     _ => DebugPickingMode::Disabled,
-                                });
+                            };
                         }
 
                         ui.set_enabled(debug_enabled);
@@ -65,15 +59,14 @@ impl MenuBar {
                             )
                             .clicked()
                         {
-                            world
-                                .get_resource_mut::<NextState<DebugPickingMode>>()
-                                .unwrap()
-                                .set(match debug_state {
+                            debug_state = match debug_state {
                                     DebugPickingMode::Normal => DebugPickingMode::Noisy,
                                     DebugPickingMode::Noisy => DebugPickingMode::Normal,
                                     _ => DebugPickingMode::Disabled,
-                                });
+                            };
                         }
+
+                        *world.resource_mut::<DebugPickingMode>() = debug_state;
                     });
 
                     ui.menu_button("PanCam (F3)", |ui| {
@@ -102,11 +95,11 @@ impl MenuBar {
             menu::bar(ui, |ui| {
                 if let Some(diags) = world.get_resource::<DiagnosticsStore>() {
                     let fps = diags
-                        .get(FrameTimeDiagnosticsPlugin::FPS)
+                        .get(&FrameTimeDiagnosticsPlugin::FPS)
                         .map(|d| d.average().unwrap_or(0.0))
                         .unwrap_or(0.0);
                     let ft = diags
-                        .get(FrameTimeDiagnosticsPlugin::FRAME_TIME)
+                        .get(&FrameTimeDiagnosticsPlugin::FRAME_TIME)
                         .map(|d| d.average().unwrap_or(0.0))
                         .unwrap_or(0.0);
                     ui.label(format!("fps: {:.0} | frame time: {:.0}ms", fps, ft));
