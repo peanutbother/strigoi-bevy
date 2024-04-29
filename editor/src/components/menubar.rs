@@ -31,10 +31,7 @@ impl MenuBar {
                     ui.menu_button("Debug (F1)", |ui| {
                         let mut debug_state = *world.resource_mut::<DebugPickingMode>();
 
-                        let debug_enabled = match debug_state {
-                            DebugPickingMode::Disabled => false,
-                            _ => true,
-                        };
+                        let debug_enabled = !matches!(debug_state, DebugPickingMode::Disabled);
 
                         ui.checkbox(
                             &mut world.resource_mut::<UiOptions>().inspector,

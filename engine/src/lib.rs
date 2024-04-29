@@ -32,7 +32,7 @@ pub fn new(init: Option<bevy::window::WindowPlugin>) -> bevy::prelude::App {
     // load game bundles (bindings and systems)
     .add_plugins(bundles::BundlePlugin)
     // load camera plugin
-    .add_plugins(bevy_pancam::PanCamPlugin::default())
+    .add_plugins(bevy_pancam::PanCamPlugin)
     // configure bevy_ecs_ldtk
     .insert_resource(LdtkSettings {
         level_spawn_behavior: LevelSpawnBehavior::UseWorldTranslation {

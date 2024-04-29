@@ -17,7 +17,8 @@ fn main() {
     }))
     // diagnostics
     .add_plugins((
-        FrameTimeDiagnosticsPlugin::default(),
+        // LogDiagnosticsPlugin,
+        FrameTimeDiagnosticsPlugin,
     ))
     // editor
     .add_plugins(plugin::EditorPlugin)

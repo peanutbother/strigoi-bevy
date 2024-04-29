@@ -1,7 +1,6 @@
-use std::f32::consts::PI;
-
 use super::{bindings::*, components::*};
 use crate::prelude::*;
+use std::f32::consts::PI;
 
 pub fn select_level_from_pos(
     players: Query<&GlobalTransform, With<Player>>,
@@ -37,8 +36,8 @@ pub fn select_level_from_pos(
     }
 }
 pub fn move_player_from_input(
-    mut players: Query<(&mut GridCoords, &mut TextureAtlasSprite, &mut Transform), With<Player>>,
-    input: Res<Input<KeyCode>>,
+    mut players: Query<(&mut GridCoords, &mut Sprite, &mut Transform), With<Player>>,
+    input: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
     mut timer: ResMut<MovementTimer>,
 ) {
@@ -46,13 +45,13 @@ pub fn move_player_from_input(
         return;
     }
 
-    let movement_direction = if input.pressed(KeyCode::W) {
+    let movement_direction = if input.pressed(KeyCode::KeyW) {
         (GridCoords::new(0, 1), MovementDirection::Up)
-    } else if input.pressed(KeyCode::A) {
+    } else if input.pressed(KeyCode::KeyA) {
         (GridCoords::new(-1, 0), MovementDirection::Left)
-    } else if input.pressed(KeyCode::S) {
+    } else if input.pressed(KeyCode::KeyS) {
         (GridCoords::new(0, -1), MovementDirection::Down)
-    } else if input.pressed(KeyCode::D) {
+    } else if input.pressed(KeyCode::KeyD) {
         (GridCoords::new(1, 0), MovementDirection::Right)
     } else {
         return;
