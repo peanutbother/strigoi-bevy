@@ -1,0 +1,62 @@
+{
+  "folders": [
+    {
+      "name": "Project",
+      "path": "."
+    },
+    {
+      "name": "editor",
+      "path": "editor/src"
+    },
+    {
+      "name": "engine",
+      "path": "engine/src"
+    },
+    {
+      "name": "game",
+      "path": "src"
+    }
+  ],
+  "settings": {
+    "cargo.automaticCheck": false,
+    "cSpell.words": [
+      "egui",
+      "Fullscreen",
+      "Ldtk",
+      "Msaa",
+      "Strigoi",
+      "TILEMAP"
+    ],
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/.classpath": true,
+      "**/.project": true,
+      "**/.settings": true,
+      "**/.factorypath": true,
+      ".direnv": true,
+      "engine/src": true,
+      "editor/src": true,
+      "src": true
+    },
+    "explorerExclude.backup": {}
+  },
+  "extensions": {
+    "recommendations": [
+      "mkhl.direnv",
+      "swellaby.rust-pack",
+      "a5huynh.vscode-ron",
+      "vadimcn.vscode-lldb",
+      "jedeop.crates-completer",
+      "gruntfuggly.todo-tree",
+      "streetsidesoftware.code-spell-checker",
+      "swellaby.vscode-rust-test-adapter",
+      "hdevalke.rust-test-lens",
+      "polymeilex.rust-targets"
+    ]
+  }
+}

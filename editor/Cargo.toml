@@ -1,0 +1,18 @@
+[package]
+name = "editor"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["development"]
+development = ["bevy/dynamic_linking"]
+
+[dependencies]
+bevy = { workspace = true }
+bevy-inspector-egui = "0.22.1"
+bevy_mod_picking = { workspace = true, features = ["backend_egui"] }
+bevy_pancam = { workspace = true, features = ["bevy_egui"] }
+egui = "0.24"
+egui_dock = "0.9"
+engine = { path = "../engine", features = ["editor"] }
+# engine = { path = "../engine" }

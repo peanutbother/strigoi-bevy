@@ -1,0 +1,15 @@
+[package]
+name = "engine"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+editor = ["bevy_pancam/bevy_egui"]
+
+[dependencies]
+bevy = { workspace = true }
+bevy_asset_loader = { version = "0.19.1", features = ["2d"] }
+bevy_ecs_ldtk = { workspace = true, features = ["atlas"] }
+bevy_mod_picking = { workspace = true }
+bevy_pancam = { workspace = true }
+macros = { path = "../macros" }
