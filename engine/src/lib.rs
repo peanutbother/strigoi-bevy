@@ -1,5 +1,6 @@
 //! Base crate with functionality and boilerplate to create a game and editor
 use bevy::{log::LogPlugin, prelude::*};
+#[cfg(feature = "editor")]
 use bevy_dev_console::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 
