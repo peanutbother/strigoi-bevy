@@ -19,21 +19,23 @@ plugin!(
         .add_systems(Update, read_logs);
 });
 
+pub type ConsoleState<'s> = SystemState<(
+    Commands<'s, 's>,
+    ResMut<'s, ConsoleUiState>,
+    Res<'s, ButtonInput<KeyCode>>,
+    ResMut<'s, CommandHints>,
+    Res<'s, ConsoleConfig>,
+)>;
+
 pub struct Console<'w, 's: 'static> {
     world: &'w mut World,
-    state: SystemState<(
-        Commands<'s, 's>,
-        ResMut<'s, ConsoleUiState>,
-        Res<'s, ButtonInput<KeyCode>>,
-        ResMut<'s, CommandHints>,
-        Res<'s, ConsoleConfig>,
-    )>,
+    state: ConsoleState<'s>,
 }
 
 impl<'w> Console<'w, '_> {
     pub fn new(world: &'w mut World) -> Self {
         Self {
-            state: SystemState::new(world),
+            state: ConsoleState::new(world),
             world,
         }
     }
