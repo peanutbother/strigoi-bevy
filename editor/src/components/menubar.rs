@@ -43,8 +43,8 @@ impl MenuBar {
                             .clicked()
                         {
                             debug_state = match debug_state {
-                                    DebugPickingMode::Disabled => DebugPickingMode::Normal,
-                                    _ => DebugPickingMode::Disabled,
+                                DebugPickingMode::Disabled => DebugPickingMode::Normal,
+                                _ => DebugPickingMode::Disabled,
                             };
                         }
 
@@ -57,9 +57,9 @@ impl MenuBar {
                             .clicked()
                         {
                             debug_state = match debug_state {
-                                    DebugPickingMode::Normal => DebugPickingMode::Noisy,
-                                    DebugPickingMode::Noisy => DebugPickingMode::Normal,
-                                    _ => DebugPickingMode::Disabled,
+                                DebugPickingMode::Normal => DebugPickingMode::Noisy,
+                                DebugPickingMode::Noisy => DebugPickingMode::Normal,
+                                _ => DebugPickingMode::Disabled,
                             };
                         }
 
