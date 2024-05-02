@@ -37,9 +37,9 @@ macro_rules! register_int_cell {
 /// Register one or more types with bevy
 #[macro_export]
 macro_rules! register_types {
-    ($app:ident, $($register_type:ty),*) => {
+    ($app:ident, $($register_type:ty),+) => {
         $app
-            $(.register_type::<$register_type>())*
+            $(.register_type::<$register_type>())+
     };
 }
 
