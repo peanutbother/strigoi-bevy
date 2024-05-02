@@ -16,7 +16,8 @@ plugin!(
         .add_plugins((
             bevy_inspector_egui::bevy_egui::EguiPlugin,
             bevy_inspector_egui::DefaultInspectorConfigPlugin,
-            bevy_mod_picking::DefaultPickingPlugins
+            bevy_mod_picking::DefaultPickingPlugins,
+            crate::components::console::ConsolePlugin
         ))
         .init_resource::<crate::state::UiState>()
         .init_resource::<crate::state::UiOptions>()
@@ -28,6 +29,7 @@ plugin!(
                 .before(bevy_inspector_egui::bevy_egui::EguiSet::ProcessOutput)
                 .before(bevy::transform::TransformSystem::TransformPropagate),
         )
+        // update entity selection
         .add_systems(Update, select_entity)
         // update camera
         .add_systems(Update, toggle_camera)
@@ -47,7 +49,7 @@ fn show_ui_system(world: &mut World) {
     let mut egui_context = egui_context.clone();
 
     world.resource_scope::<crate::components::Editor, _>(|world, mut editor| {
-        editor.ui(world, egui_context.get_mut())
+        editor.ui(world, egui_context.get_mut());
     });
 }
 

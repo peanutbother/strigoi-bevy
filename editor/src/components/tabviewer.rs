@@ -1,3 +1,4 @@
+use super::{editor::InspectorSelection, Console};
 use crate::state::*;
 use bevy::{asset::ReflectAsset, reflect::TypeRegistry};
 use bevy_inspector_egui::bevy_inspector::{
@@ -8,8 +9,6 @@ use bevy_inspector_egui::bevy_inspector::{
 use egui::Sense;
 use engine::prelude::*;
 
-use super::editor::InspectorSelection;
-
 #[derive(Debug)]
 pub enum EguiWindow {
     GameView,
@@ -17,6 +16,7 @@ pub enum EguiWindow {
     Resources,
     Assets,
     Inspector,
+    Console,
 }
 
 pub struct TabViewer<'a> {
@@ -75,6 +75,11 @@ impl egui_dock::TabViewer for TabViewer<'_> {
                     );
                 }
             },
+            EguiWindow::Console => {
+                let mut console = Console::new(self.world);
+
+                console.ui(ui);
+            }
         }
     }
     fn title(&mut self, window: &mut Self::Tab) -> egui_dock::egui::WidgetText {

@@ -27,8 +27,15 @@ impl Editor {
         let [game, _inspector] =
             tree.split_right(NodeIndex::root(), 0.75, vec![EguiWindow::Inspector]);
         let [game, _hierarchy] = tree.split_left(game, 0.2, vec![EguiWindow::Hierarchy]);
-        let [_game, _bottom] =
-            tree.split_below(game, 0.8, vec![EguiWindow::Resources, EguiWindow::Assets]);
+        let [_game, _bottom] = tree.split_below(
+            game,
+            0.8,
+            vec![
+                EguiWindow::Console,
+                EguiWindow::Resources,
+                EguiWindow::Assets,
+            ],
+        );
 
         Self {
             state,
