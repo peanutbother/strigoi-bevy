@@ -57,7 +57,7 @@ pub fn move_player_from_input(
         return;
     };
 
-    for (mut player_grid_coords, mut sprite, mut transform) in players.iter_mut() {
+    for (mut player_grid_coords, mut sprite, mut transform) in &mut players {
         let destination = *player_grid_coords + movement_direction.0;
         *player_grid_coords = destination;
 
@@ -83,7 +83,7 @@ pub fn move_player_from_input(
 pub fn translate_grid_coords_entities(
     mut grid_coords_entities: Query<(&mut Transform, &GridCoords), Changed<GridCoords>>,
 ) {
-    for (mut transform, grid_coords) in grid_coords_entities.iter_mut() {
+    for (mut transform, grid_coords) in &mut grid_coords_entities {
         transform.translation = bevy_ecs_ldtk::utils::grid_coords_to_translation(
             *grid_coords,
             IVec2::splat(TILEMAP_GRID_SIZE),

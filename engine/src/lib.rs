@@ -15,6 +15,7 @@ pub mod bindings {
 }
 
 /// Create the base engine with all default plugins, bindings, assets, configuration and systems registered
+#[must_use]
 pub fn new(init: Option<WindowPlugin>) -> App {
     let mut app = App::new();
     app.add_plugins((

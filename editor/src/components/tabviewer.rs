@@ -62,7 +62,7 @@ impl egui_dock::TabViewer for TabViewer<'_> {
                         ui,
                         name,
                         &type_registry,
-                    )
+                    );
                 }
                 InspectorSelection::Asset(type_id, ref name, handle) => {
                     ui.label(name);
@@ -150,7 +150,7 @@ pub(crate) fn select_asset(
                 };
 
                 if ui
-                    .selectable_label(selected, format!("{:?}", handle))
+                    .selectable_label(selected, format!("{handle:?}"))
                     .clicked()
                 {
                     *selection =

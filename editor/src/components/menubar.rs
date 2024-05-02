@@ -59,7 +59,7 @@ impl MenuBar {
                             debug_state = match debug_state {
                                 DebugPickingMode::Normal => DebugPickingMode::Noisy,
                                 DebugPickingMode::Noisy => DebugPickingMode::Normal,
-                                _ => DebugPickingMode::Disabled,
+                                DebugPickingMode::Disabled => DebugPickingMode::Disabled,
                             };
                         }
 
@@ -93,13 +93,13 @@ impl MenuBar {
                 if let Some(diags) = world.get_resource::<DiagnosticsStore>() {
                     let fps = diags
                         .get(&FrameTimeDiagnosticsPlugin::FPS)
-                        .map(|d| d.average().unwrap_or(0.0))
-                        .unwrap_or(0.0);
+                        .map(|d| d.average().unwrap_or_default())
+                        .unwrap_or_default();
                     let ft = diags
                         .get(&FrameTimeDiagnosticsPlugin::FRAME_TIME)
-                        .map(|d| d.average().unwrap_or(0.0))
-                        .unwrap_or(0.0);
-                    ui.label(format!("fps: {:.0} | frame time: {:.0}ms", fps, ft));
+                        .map(|d| d.average().unwrap_or_default())
+                        .unwrap_or_default();
+                    ui.label(format!("fps: {fps:.0} | frame time: {ft:.0}ms"));
                 }
             });
         });

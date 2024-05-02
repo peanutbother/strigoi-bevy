@@ -66,7 +66,7 @@ fn select_entity(
     }
 
     for event in event.read() {
-        egui_state.selected_entities.select_replace(event.target)
+        egui_state.selected_entities.select_replace(event.target);
     }
 }
 
