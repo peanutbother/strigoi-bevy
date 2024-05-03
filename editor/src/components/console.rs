@@ -50,10 +50,10 @@ impl<'w> Console<'w, '_> {
                 commands.add(ExecuteCommand(command));
             }
         };
-
-        if key.just_pressed(config.submit_key) {
-            submit_command(&mut state.command);
-        }
+        let text_edit_id = egui::Id::new("text_edit");
+        let focus_text_input = |ui: &mut egui::Ui| {
+            ui.ctx().memory_mut(|mem| mem.request_focus(text_edit_id));
+        };
 
         // A General rule when creating layouts in egui is to place elements which fill remaining space last.
         // Since immediate mode ui can't predict the final sizes of widgets until they've already been drawn
@@ -63,19 +63,16 @@ impl<'w> Console<'w, '_> {
             .frame(egui::Frame::none().outer_margin(egui::Margin {
                 left: 0.0,
                 right: 5.0,
-                top: 5. + 6.,
-                bottom: 20.0,
+                top: 10.0,
+                bottom: 25.0,
             }))
             .show_inside(ui, |ui| {
-                let text_edit_id = egui::Id::new("text_edit");
-
                 // We can use a right to left layout, so we can place the text input last and tell it to fill all remaining space
                 ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                    if ui.button("Submit").clicked() {
-                        // submit_command(&mut state.command);
-
+                    if ui.button("Submit").clicked() || key.just_pressed(config.submit_key) {
+                        submit_command(&mut state.command);
                         // Return keyboard focus to the text edit control.
-                        ui.ctx().memory_mut(|mem| mem.request_focus(text_edit_id));
+                        focus_text_input(ui);
                     }
                     // ui.button is a shorthand command, a similar command exists for text edits, but this is how to manually construct a widget.
                     // doing this also allows access to more options of the widget, rather than being stuck with the default the shorthand picks.
@@ -83,20 +80,21 @@ impl<'w> Console<'w, '_> {
                         .id(text_edit_id)
                         .desired_width(ui.available_width())
                         .margin(egui::Vec2::splat(4.0))
-                        // .font(config.theme.font.clone())
+                        .font(config.theme.font.clone())
                         .lock_focus(true);
 
                     ui.add(text_edit);
 
-                    // Each time we open the console, we want to set focus to the text edit control.
-                    if !state.text_focus {
-                        state.text_focus = true;
-                        ui.ctx().memory_mut(|mem| mem.request_focus(text_edit_id));
+                    // Restore focus to text input after keyboard submit
+                    if key.just_pressed(config.submit_key) {
+                        // Return keyboard focus to the text edit control.
+                        focus_text_input(ui);
                     }
                 });
             });
         // Now we can fill the remaining minutespace with a scrollarea, which has only the vertical scrollbar enabled and expands to be as big as possible.
         egui::ScrollArea::new([false, true])
+            .stick_to_bottom(true)
             .auto_shrink([false, true])
             .show(ui, |ui| {
                 ui.vertical(|ui| {

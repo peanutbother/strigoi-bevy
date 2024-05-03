@@ -29,7 +29,7 @@ impl Editor {
         let [game, _hierarchy] = tree.split_left(game, 0.2, vec![EguiWindow::Hierarchy]);
         let [_game, _bottom] = tree.split_below(
             game,
-            0.8,
+            0.75,
             vec![
                 EguiWindow::Console,
                 EguiWindow::Resources,
