@@ -20,6 +20,12 @@ pub struct Editor {
     selection: InspectorSelection,
 }
 
+impl Default for Editor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Editor {
     pub fn new() -> Self {
         let mut state = DockState::new(vec![EguiWindow::GameView]);
@@ -60,11 +66,5 @@ impl Editor {
             .show(ctx, &mut tab_viewer);
 
         MenuBar::bottom(world, ctx);
-    }
-}
-
-impl Default for Editor {
-    fn default() -> Self {
-        Self::new()
     }
 }
